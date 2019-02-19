@@ -1,16 +1,7 @@
-<!-- This is a static file -->
-<!-- served from your routes in server.js -->
-
-<!-- You might want to try something fancier: -->
-<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
-<!-- pug: https://pugjs.org/ -->
-<!-- haml: http://haml.info/ -->
-<!-- hbs(handlebars): http://handlebarsjs.com/ -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Welcome to Glitch!</title>
+<head>
+    <title>Maths Bomb</title>
     <meta name="description" content="A cool thing made with Glitch">
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <meta charset="utf-8">
@@ -19,40 +10,52 @@
 
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
-    
+
     <!-- import the webpage's client-side javascript file -->
+    <script src="/jquery-3.3.1.min.js" defer></script>
+    <script src="/domSetup.js" defer></script>
+    <script src="/host.js" defer></script>
     <script src="/client.js" defer></script>
-  </head>
-  <body>
-    <header>
-      <h1>
-        A Dream of the Future
-      </h1>
-    </header>
-
-    <main>
-      <p class="bold">Oh hi,</p>
-      
-      <p>Tell me your hopes and dreams:</p>
-      
-      <form>
-        <input name="dream" type="text" maxlength="100" placeholder="Dreams!" aria-labelledby="submit-dream">
-        <button type="submit" id="submit-dream">Submit Dream</button>
-      </form>
-      
-      <section class="dreams">
-        <ul id="dreams"></ul>
-      </section>
-    </main>
-
-    <footer>
-      Made with <a href="https://glitch.com">Glitch</a>!
-    </footer>
-
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
-
-  </body>
+</head>
+<body>
+<!-- Intro Panel: The first things all viewers will see -->
+<div id="introPanel">
+    <h1>Maths Bomb</h1>
+    <button id="joinGameBtn">JOIN GAME</button>
+    <button id="hostGameBtn">HOST GAME</button>
+</div>
+<div id="hostPanel">
+    <h1>Welcome to Maths Bomb</h1>
+    <p>This is a highly competitive maths game, built for classrooms and parties</p>
+    <p>Ideally the host should be using one of the following: Interactive Whiteboard, projector, a
+    computer monitor that is visible to all players.</p>
+    <p>All other players should join on handheld devices such as iPads or phones.
+     Alternatively they can play in an ICT suite if each team has their own computer.</p>
+    <div class="flexCenter">
+        <form id="hostSetupForm" action="/hostSetup/" method="post">
+            <label for="groupName">Group Name: </label>
+            <input type="text" id="groupName" name="groupName" placeholder="e.g. classAwesome" required>
+            <label for="entryPassword">Password: </label>
+            <input type="text" id="entryPassword" name="entryPassword" placeholder="keep it simple" required>
+            <input class="submitBtn" type="submit" value="DONE!">
+        </form>
+    </div>
+    <button id="hostBackBtn">BACK</button>
+</div>
+<div id="hostWaitingPanel">
+    <h2>Room is Ready</h2>
+    <p>Get the players to join the game by using the PIN and password below.</p>
+    <p>Once all players have joined, press the BEGIN button.</p>
+    <div class="joiningDetails">
+        <div class="flexCenter">
+            <p>Group Name: </p>
+            <p id="groupNameDisplay"></p>
+        </div>
+        <div class="flexCenter">
+            <p>PIN: </p>
+            <p id="pinDisplay"></p>
+        </div>
+    </div>
+</div>
+</body>
 </html>
