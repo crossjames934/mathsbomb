@@ -20,6 +20,10 @@ const passwordDisplay = $("#passwordDisplay");
 
 // Player Section
 const playerFeedback = $("#playerFeedback");
+const welcomeMsg = $("#welcomeMsg");
+
+// List of players
+const listOfPlayers = [$("#listOfPlayers_Player"), $("#listOfPlayers_Host")];
 
 // Forms and Inputs
 const hostSetupForm = $("#hostSetupForm");

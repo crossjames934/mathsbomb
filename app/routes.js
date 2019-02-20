@@ -1,38 +1,37 @@
 const express = require('express');
-// const mongodb = require('mongodb');
 const mongoose = require('mongoose');
-// const bodyParser = require('body-parser');
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
 
+const models = require('./models');
 
 // Connect to Database
-mongoose.connect(process.env.DB);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-    console.log("Connected to Database! :D");
-});
-
-// Schema and Models
-const roomSchema = new mongoose.Schema({
-    groupName: String,
-    id: String,
-    pin: String,
-    entryPassword: String,
-    unixTimestamp: Number,
-    players: Array
-});
-const Room = mongoose.model('Room', roomSchema);
-
-const playerSchema = new mongoose.Schema({
-    teamName: String,
-    id: String,
-    points: Number,
-    totalPoints: Number,
-    hp: Number
-});
-const Player = mongoose.model('Player', playerSchema);
+// mongoose.connect(process.env.DB);
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', () => {
+//     console.log("Connected to Database! :D");
+// });
+//
+// // Schema and Models
+// const roomSchema = new mongoose.Schema({
+//     groupName: String,
+//     id: String,
+//     pin: String,
+//     entryPassword: String,
+//     unixTimestamp: Number,
+//     players: Array
+// });
+// const Room = mongoose.model('Room', roomSchema);
+//
+// const playerSchema = new mongoose.Schema({
+//     teamName: String,
+//     id: String,
+//     points: Number,
+//     totalPoints: Number,
+//     hp: Number
+// });
+// const Player = mongoose.model('Player', playerSchema);
 
 // EXPORTS - Routes
 module.exports = app => {
@@ -40,7 +39,7 @@ module.exports = app => {
     app.route('/hostSetup/')
         .post((req, res) => {
             // Get all existing IDs of rooms to make sure we don't generate a duplicate one
-            Room.find((err, docs) => {
+            models.room.find((err, docs) => {
                 if (err) return console.error(err);
                 const existingPINs = docs.map(doc => doc.pin);
                 const pinMultiplier = 1000000;
@@ -51,7 +50,7 @@ module.exports = app => {
                 }
                 const salt = bcrypt.genSaltSync(Number(process.env.SALT_ROUNDS));
                 const hash = bcrypt.hashSync(req.body.entryPassword, salt);
-                const newRoom = new Room({
+                const newRoom = new models.room({
                     groupName: req.body.groupName,
                     id: shortid.generate(),
                     pin: rndID,
@@ -72,7 +71,7 @@ module.exports = app => {
 
     app.route('/joinGame/')
         .post((req, res) => {
-            Room.find({pin: req.body.pin}, (err, docs) => {
+            models.room.find({pin: req.body.pin}, (err, docs) => {
                 // Error connecting
                 if (err) {
                     console.error(err);
@@ -94,7 +93,7 @@ module.exports = app => {
                 }
                 // All good, all tests passed
                 const newID = shortid.generate();
-                const newPlayer = new Player({
+                const newPlayer = new models.player({
                     teamName: req.body.teamName,
                     id: newID,
                     points: 0,
@@ -102,7 +101,7 @@ module.exports = app => {
                     hp: 100
                 });
                 const newPlayerArr = [...currentPlayers, newPlayer];
-                Room.findOneAndUpdate({pin: req.body.pin}, {players: newPlayerArr}, (err) => {
+                models.room.findOneAndUpdate({pin: req.body.pin}, {players: newPlayerArr}, (err) => {
                     if (err) {
                         console.error(err);
                         return res.send("Error connecting to server");
@@ -113,3 +112,4 @@ module.exports = app => {
         });
 };
 
+// module.exports.room = Room;

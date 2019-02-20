@@ -40,6 +40,8 @@ playerSetupForm.submit(e => {
             user = new User(groupName, teamName, userID);
             playerPanel.hide();
             playerWaitingPanel.show();
+            welcomeMsg.text("Welcome " + teamName);
+            socket.emit('player added', playerPin);
         } else {
             playerFeedback.text(data);
         }

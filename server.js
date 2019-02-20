@@ -7,7 +7,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const routes = require('./routes');
+const routes = require('./app/routes');
+const socketConnections = require('./app/socketConnections');
 
 // Server files and basic app usage
 app.use(express.static('public'));
@@ -23,22 +24,7 @@ app.get('/', function(request, response) {
 routes(app);
 
 // Socket connections
-io.on('connection', socket => {
-    console.log("a user connected");
-
-    socket.on('hello', () => {
-        console.log('hello');
-    });
-
-    socket.on('player added', () => {
-        console.log('player added');
-    });
-
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
-});
-
+socketConnections(io);
 
 // // listen for requests :)
 // const listener = app.listen(process.env.PORT, () => {
