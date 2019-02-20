@@ -13,17 +13,27 @@
 
     <!-- import the webpage's client-side javascript file -->
     <script src="/jquery-3.3.1.min.js" defer></script>
+    <script src="/socket.io.js" defer></script>
+    <script src="/domVariables.js" defer></script>
+    <script src="/buttons.js" defer></script>
+    <script src="/forms.js" defer></script>
     <script src="/domSetup.js" defer></script>
-    <script src="/host.js" defer></script>
+    <script src="/user.js" defer></script>
     <script src="/client.js" defer></script>
 </head>
 <body>
+<div id="pleaseWait">
+    Please Wait...
+</div>
+
 <!-- Intro Panel: The first things all viewers will see -->
 <div id="introPanel">
     <h1>Maths Bomb</h1>
     <button id="joinGameBtn">JOIN GAME</button>
     <button id="hostGameBtn">HOST GAME</button>
 </div>
+
+<!-- All Hosting Panels -->
 <div id="hostPanel">
     <h1>Welcome to Maths Bomb</h1>
     <p>This is a highly competitive maths game, built for classrooms and parties</p>
@@ -47,15 +57,42 @@
     <p>Get the players to join the game by using the PIN and password below.</p>
     <p>Once all players have joined, press the BEGIN button.</p>
     <div class="joiningDetails">
-        <div class="flexCenter">
-            <p>Group Name: </p>
-            <p id="groupNameDisplay"></p>
-        </div>
-        <div class="flexCenter">
-            <p>PIN: </p>
-            <p id="pinDisplay"></p>
-        </div>
+        <p class="hostWaitingLabels">Name: </p>
+        <p class="hostWaitingInfo" id="groupNameDisplay"></p>
+        <p class="hostWaitingLabels">PIN: </p>
+        <p class="hostWaitingInfo" id="pinDisplay"></p>
+        <p class="hostWaitingLabels">Password: </p>
+        <p class="hostWaitingInfo" id="passwordDisplay"></p>
     </div>
+    <div id="listOfPlayers">
+
+    </div>
+    <button id="beginBtn">BEGIN</button>
 </div>
+
+<!-- All player panels -->
+<div id="playerPanel">
+    <h1>Welcome to Maths Bomb</h1>
+    <p>Are you ready to have your maths skills put to the test?</p>
+    <p>Someone should be hosting a game for you, use the PIN and password to gain entry:</p>
+    <div class="flexCenter">
+        <form id="playerSetupForm" action="/joinGame/">
+            <label for="teamNameEntry">Team Name:</label>
+            <input type="text" id="teamNameEntry">
+            <label for="playerPinEntry">PIN:</label>
+            <input type="text" id="playerPinEntry">
+            <label for="playerPasswordEntry">Password:</label>
+            <input type="text" id="playerPasswordEntry">
+            <input class="submitBtn" type="submit" value="GO!">
+        </form>
+    </div>
+    <p class="red" id="playerFeedback"></p>
+    <button id="playerBackBtn">BACK</button>
+</div>
+<div id="playerWaitingPanel">
+    <h1>You Are Ready!</h1>
+    <p>Waiting for all other players to join and for the host to start the game.</p>
+</div>
+
 </body>
 </html>
