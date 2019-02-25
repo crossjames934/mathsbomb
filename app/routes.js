@@ -1,37 +1,9 @@
-const express = require('express');
-const mongoose = require('mongoose');
+// const express = require('express');
+// const mongoose = require('mongoose');
 const shortid = require('shortid');
 const bcrypt = require('bcrypt');
 
 const models = require('./models');
-
-// Connect to Database
-// mongoose.connect(process.env.DB);
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', () => {
-//     console.log("Connected to Database! :D");
-// });
-//
-// // Schema and Models
-// const roomSchema = new mongoose.Schema({
-//     groupName: String,
-//     id: String,
-//     pin: String,
-//     entryPassword: String,
-//     unixTimestamp: Number,
-//     players: Array
-// });
-// const Room = mongoose.model('Room', roomSchema);
-//
-// const playerSchema = new mongoose.Schema({
-//     teamName: String,
-//     id: String,
-//     points: Number,
-//     totalPoints: Number,
-//     hp: Number
-// });
-// const Player = mongoose.model('Player', playerSchema);
 
 // EXPORTS - Routes
 module.exports = app => {
@@ -48,7 +20,7 @@ module.exports = app => {
                 while (existingPINs.indexOf(rndID) > -1) {
                     rndID = String(Math.floor(Math.random() * pinMultiplier * 0.9 + pinMultiplier * 0.1));
                 }
-                const salt = bcrypt.genSaltSync(Number(process.env.SALT_ROUNDS));
+                const salt = bcrypt.genSaltSync(process.env.SALT_ROUNDS*1);
                 const hash = bcrypt.hashSync(req.body.entryPassword, salt);
                 const newRoom = new models.room({
                     groupName: req.body.groupName,
@@ -111,5 +83,3 @@ module.exports = app => {
             });
         });
 };
-
-// module.exports.room = Room;

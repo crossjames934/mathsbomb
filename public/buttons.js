@@ -22,5 +22,5 @@ function joinGame() {
 }
 
 function beginGame() {
-
+    socket.emit('game start', user.pin);
 }

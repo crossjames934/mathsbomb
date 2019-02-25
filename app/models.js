@@ -1,7 +1,4 @@
-const express = require('express');
 const mongoose = require('mongoose');
-const shortid = require('shortid');
-const bcrypt = require('bcrypt');
 
 // Connect to Database
 mongoose.connect(process.env.DB);
@@ -18,7 +15,7 @@ const roomSchema = new mongoose.Schema({
     pin: String,
     entryPassword: String,
     unixTimestamp: Number,
-    players: Array
+    players: Array,
 });
 const Room = mongoose.model('Room', roomSchema);
 

@@ -4,6 +4,7 @@ const hostPanel = $("#hostPanel");
 const hostWaitingPanel = $("#hostWaitingPanel");
 const playerPanel = $("#playerPanel");
 const playerWaitingPanel = $("#playerWaitingPanel");
+const gamePanel = $("#gamePanel");
 const pleaseWait = $("#pleaseWait");
 
 // Buttons
@@ -33,3 +34,6 @@ const playerSetupForm = $("#playerSetupForm");
 const teamNameEntry = $("#teamNameEntry");
 const playerPinEntry = $("#playerPinEntry");
 const playerPasswordEntry = $("#playerPasswordEntry");
+
+// Gameplay
+const countDown = $("#countDown");

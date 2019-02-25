@@ -12,7 +12,7 @@ hostSetupForm.submit(e => {
         hostPanel.hide();
         pleaseWait.hide();
         hostWaitingPanel.show();
-        user = new User(data.groupName, null, data.id);
+        user = new User(data.groupName, null, data.id, data.pin);
         groupNameDisplay.text(data.groupName);
         pinDisplay.text(data.pin);
         passwordDisplay.text(data.entryPassword);
@@ -37,7 +37,7 @@ playerSetupForm.submit(e => {
             const dataArr = data.split(":");
             const userID = dataArr[1];
             const groupName = dataArr[2];
-            user = new User(groupName, teamName, userID);
+            user = new User(groupName, teamName, userID, playerPin);
             playerPanel.hide();
             playerWaitingPanel.show();
             welcomeMsg.text("Welcome " + teamName);

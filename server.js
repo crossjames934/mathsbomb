@@ -1,6 +1,5 @@
 // Dependencies
 const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const app = express();
@@ -26,11 +25,7 @@ routes(app);
 // Socket connections
 socketConnections(io);
 
-// // listen for requests :)
-// const listener = app.listen(process.env.PORT, () => {
-//     console.log('Your app is listening on port ' + listener.address().port);
-// });
-
+// Listen for requests
 http.listen(process.env.PORT, function(){
     console.log('listening on '+process.env.PORT);
 });

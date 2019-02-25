@@ -90,3 +90,17 @@ p {
 .red {
     color: red;
 }
+
+#countDown {
+    font-size: 40px;
+}
+
+.countDownContainer {
+    border: 5px solid red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+}

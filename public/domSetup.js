@@ -3,6 +3,7 @@ hostPanel.hide();
 hostWaitingPanel.hide();
 playerPanel.hide();
 playerWaitingPanel.hide();
+gamePanel.hide();
 pleaseWait.hide();
 
 function test() {
